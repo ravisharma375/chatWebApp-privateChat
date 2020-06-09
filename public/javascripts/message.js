@@ -61,7 +61,7 @@ socket.on("new-message",(data,currtime)=>{
   html += `<li class="replies">
   <div class="container darker green lighten-1">
     <p>${data.message}</p>
-   <span class="time-left black-text">1${currtime}</span>
+   <span class="time-left black-text">${currtime}</span>
  </div>
 </li>`
   document.getElementById("messages-user").innerHTML+=html
@@ -81,7 +81,7 @@ $(document).ready(function(){
          $("#message").prop("disabled", false);
          $.ajax({
           type:"POST",
-          url:"http://localhost:3000/chatMessage",
+          url:"/chatMessage",
          data:{
             sender:sender,
             receiver:receiver,

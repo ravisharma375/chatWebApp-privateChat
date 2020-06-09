@@ -1,9 +1,3 @@
-var moment = require('moment');
-function massageFormat(userName,text){
-return {
-    userName,
-    text,
-    time:moment().format('h:mm a')
-}
-}
-module.exports=massageFormat
+const moment = require('moment-timezone');
+const time = moment().utcOffset("+05:30").format('hh:mm a')
+module.exports = time

@@ -6,10 +6,9 @@ var auth  = require('../config/auth')
 const { Op } = require("sequelize");
 var userService=require('../src/service/user')
 const {chat} = require("../config/db")
-var moment = require("moment")
-var currtime = moment().format('h:mm a')
+const time=require('../src/service/message');
 //get register page
-
+console.log("moment time in indexjs ",time)
 router.get('/register',function(req,res){
   res.render("register");
 })
@@ -136,9 +135,9 @@ router.get('/home',auth.ensureAdminAuthenticated,async (req,res)=>{
     
   }
  })
- console.log(user.userName)
+ console.log(allUser)
  res.render("home", {
-  currtime:currtime, 
+currtime:time, 
 CURRENTUSER:user,   
 USER:allUser
 });

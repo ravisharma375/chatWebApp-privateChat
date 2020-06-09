@@ -4,10 +4,12 @@ const friendsModel=require("../src/model/friend")
 const chatModel = require("../src/model/chat")
 const connection=new Sequelize("mychat","root","",{
 host:"localhost",
-dialect:"mysql"
+dialect:"mysql",
+dialectOptions: {
+  useUTC: false, // for reading from database
+},
+timezone: '+05:30', // for writing to database
 })
-
-
 connection.authenticate().then(x=>{
             console.log('Connection has been established successfully.');
          }).catch (error=>

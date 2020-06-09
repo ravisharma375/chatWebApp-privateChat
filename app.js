@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const messageFormat=require('./src/service/message');
+const time=require('./src/service/message');
 const passport = require("passport");
 //var io = require('socket.io')(server);
 var indexRouter = require('./routes/index');
@@ -13,7 +13,7 @@ const flash = require("connect-flash");
 const {friends} = require("./config/db")
 const {chat} = require("./config/db")
 const bodyparser  =  require("body-parser")
-var moment = require("moment")
+
 var app = express();
 var soc_io = require('socket.io');
 var io=soc_io()
@@ -79,7 +79,8 @@ app.use(function(err, req, res, next) {
 const chatBot = "chatBot"
 // store user in array
 var users=[]
-var currtime = moment().format('h:mm a')
+var currtime = time
+console.log("Time from moment ",currtime)
 //creating socket io  instance
 io.on("connection",(socket)=>{
   //checking socket connected or not

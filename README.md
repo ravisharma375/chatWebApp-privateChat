@@ -32,5 +32,15 @@ This Chat Web-site Where You Can chat In Private like **{WhatApp}**
 ![Screenshot (12)](https://user-images.githubusercontent.com/55868205/84129708-27532c80-a9f7-11ea-85a2-f6aa7b5e630a.png)
 
 
+## Guide To Use This Project
+
+**npm install**
+
+**npm audit fix**
+ 
+**npm Start**
+
+**Change The Config in db.js file**
+
 > *Follow Me on Instagram
 [  Click Here To Follow](https://www.instagram.com/itsravisharma.me/)

@@ -22,8 +22,15 @@ This Chat Web-site Where You Can chat In Private like **{WhatApp}**
 
 ## User Interface of Registration Page
 > I have created simple and beautiful Login Page, Its only Take To parameter username and password
+
+![Screenshot (11)](https://user-images.githubusercontent.com/55868205/84129659-16a2b680-a9f7-11ea-81bd-547386f7b2bf.png)
+
+
 ## User Interface of Home Page
 > I have created simple and beautiful Home Page, Where You Can Start doing Chatting
+
+![Screenshot (12)](https://user-images.githubusercontent.com/55868205/84129708-27532c80-a9f7-11ea-85a2-f6aa7b5e630a.png)
+
 
 > *Follow Me on Instagram
 [  Click Here To Follow](https://www.instagram.com/itsravisharma.me/)

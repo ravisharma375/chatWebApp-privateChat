@@ -19,6 +19,7 @@ console.log("new user ", username)
 })
 function onUserSelected(username){
     receiver=username
+    console.log("FUNCTION CALL")
     //call  an ajax to retrive previous message
    
     return false
@@ -71,15 +72,17 @@ console.log(data,"hello new mesage")
 
 //jquery to disable and enable input tag
 $(document).ready(function(){
-  alert("click on the user  check box   to start the chat")
+
+
   $('#message').prop("disabled", true);
-   
-    $("#agree").click(function(){
   
-        if($(this).prop("checked") == true){
-          
-         $("#message").prop("disabled", false);
-         $.ajax({
+    $(".agree").click(function(){
+      console.log("click me")
+      $("#message").prop("disabled", false);
+      $("#messages-user").empty() 
+
+      console.log("chat clear")
+       $.ajax({
           type:"POST",
           url:"/chatMessage",
          data:{
@@ -90,7 +93,8 @@ $(document).ready(function(){
             
             const msg = response.data
             msg.forEach(x=>{
-              // console.log(x.senderId,sender)
+
+              // consol)e.log(x.senderId,sender)
               // console.log(x.receiverId,receiver)
               // console.log(x.messages)
               // console.log(x.id)
@@ -120,15 +124,76 @@ $(document).ready(function(){
             })
           }
         })
+        if($(this).prop("checked") == true){
+          
+         $("#message").prop("disabled", false);
+         console.log("click me")
+
+        //  $.ajax({
+        //   type:"POST",
+        //   url:"/chatMessage",
+        //  data:{
+        //     sender:sender,
+        //     receiver:receiver,
+        //   },
+        //   success:function(response){
+            
+        //     const msg = response.data
+        //     msg.forEach(x=>{
+
+        //       // consol)e.log(x.senderId,sender)
+        //       // console.log(x.receiverId,receiver)
+        //       // console.log(x.messages)
+        //       // console.log(x.id)
+        //       // listofmessage.push(x.id)
+        //       // console.log(listofmessage)
+        //       if(x.receiverId == receiver){
+        //         console.log("if")
+        //         var html = ``;
+        //         html +=`<li class="sent">
+        //         <div class="container lime lighten-3">
+        //           <p>${x.messages}</p>
+        //           <span class="time-right black-text">11:00</span>
+        //         </div>
+        //        </li>`
+        //         document.getElementById("messages-user").innerHTML+=html
+        //       }else{
+        //         console.log("else")
+        //         var html = ``;
+        //         html +=`<li class="replies">
+        //         <div class="container darker green lighten-1">
+        //           <p>${x.messages}</p>
+        //          <span class="time-left black-text">11:01</span>
+        //        </div>
+        //       </li>`
+        //         document.getElementById("messages-user").innerHTML+=html
+        //       }
+        //     })
+        //   }
+        // })
         }
         else if($(this).prop("checked") == false){
-          console.log("checkbox is uncheck")
+          console.log("redio is uncheck")
+ 
           $("#messages-user").empty()
+
           $('#message').prop("disabled", true);
+          return true
          }
     });
 });
 //scroll jquery code referance from metrialize
 $(document).ready(function(){
   $('.scrollspy').scrollSpy();
+});
+var scrolled = false;
+function updateScroll(){
+    if(!scrolled){
+        var element = document.getElementById("yourDivID");
+        element.scrollTop = element.scrollHeight;
+    }
+}
+
+$("#yourDivID").on('scroll', function(){
+    scrolled=true;
 });

@@ -112,9 +112,9 @@ clear: both;
             <img src="images/user.webp" alt="ravisharma.me" class="circle">
           <span class="title">
             <label>
-              <input type="checkbox" id="agree" class="" onclick='onUserSelected("<%= user.userName %>")' />
-              <span class="cyan-text"><%= user.userName %></span>
-            </label>
+              <button  name="group1"  id="agree" class="btn agree"  onclick='onUserSelected("<%=user.userName %>")' ><span class="cyan-text"><%= user.userName %></span></button>
+             
+               </label>
           </span>
           <p>
           </p>
@@ -132,8 +132,8 @@ clear: both;
       <div class="col s9">
 
         <!-- Teal page content  -->
-        <div class="messages" >
-          <ul id="messages-user" style="list-style-type:none;">
+        <div class="messages"  >
+          <ul id="messages-user" id="yourDivID" style="list-style-type:none;">
 <!-- all message are display in this ul -->
           </ul>
         </div>

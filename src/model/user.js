@@ -14,6 +14,7 @@ module.exports=function(connection,dataType){
         password:{
             type:dataType.STRING,
         }
+
     })
   
     User.hashPassword = function(password) {

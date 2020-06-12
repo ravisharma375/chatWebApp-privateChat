@@ -15,6 +15,9 @@ module.exports = (connection,dataType) =>{
         },
         messages:{
             type:dataType.STRING,
+        },
+        msgTime:{
+            type:dataType.STRING,
         }
     })
     return chat

@@ -19,7 +19,8 @@ console.log("new user ", username)
 })
 function onUserSelected(username){
     receiver=username
-    console.log("FUNCTION CALL")
+    document.getElementById("chatHead").innerHTML = username
+    console.log("FUNCTION CALL",username)
     //call  an ajax to retrive previous message
    
     return false
@@ -28,6 +29,7 @@ function onUserSelected(username){
 function sendMessage(){
   var message =  document.getElementById("message").value
   var msg = message.trim()
+  console.log("Empty",message)
   if(msg==""){
 console.log("Empty",message)
 document.getElementById("message").value  = ""
@@ -38,17 +40,24 @@ else{
     socket.emit("send-message",{
         sender:sender,
         receiver:receiver,
-        message:message
+        message:message,
+        time:currtimenow
     })
     var html = ``;
     // html +="<li class='replies text-left bg-dark text-white'><p>"+"you"+"say"+message+"</p></li>"
-     html += `<li class="sent">
-     <div class="container lime lighten-3">
-       <p>${message}</p>
-       <span class="time-right black-text">${currtimenow}</span>
+     html += `<div class="row message-body">
+     <div class="col-sm-12 message-main-sender">
+       <div class="sender">
+         <div class="message-text">
+          ${message}
+         </div>
+         <span class="message-time pull-right">
+           ${currtimenow}
+         </span>
+       </div>
      </div>
-    </li>`
-    document.getElementById("messages-user").innerHTML+=html
+   </div>`
+    document.getElementById("conversation").innerHTML+=html
     document.getElementById("message").value  = ""
 }
   return false
@@ -59,13 +68,19 @@ socket.on("new-message",(data,currtime)=>{
 
   var html = ``;
   //html +="<li class='sent text-right bg-success text-white'><p>"+data.sender+"say"+data.message+"</p></li>"
-  html += `<li class="replies">
-  <div class="container darker green lighten-1">
-    <p>${data.message}</p>
-   <span class="time-left black-text">${currtime}</span>
- </div>
-</li>`
-  document.getElementById("messages-user").innerHTML+=html
+  html += `<div class="row message-body">
+  <div class="col-sm-12 message-main-receiver">
+    <div class="receiver">
+      <div class="message-text">
+       ${data.message}
+      </div>
+      <span class="message-time pull-right">
+      ${currtime}
+      </span>
+    </div>
+  </div>
+</div>`
+  document.getElementById("conversation").innerHTML+=html
   
 console.log(data,"hello new mesage")
 })
@@ -79,7 +94,7 @@ $(document).ready(function(){
     $(".agree").click(function(){
       console.log("click me")
       $("#message").prop("disabled", false);
-      $("#messages-user").empty() 
+      $("#conversation").empty() 
 
       console.log("chat clear")
        $.ajax({
@@ -90,7 +105,7 @@ $(document).ready(function(){
             receiver:receiver,
           },
           success:function(response){
-            
+            console.log(response)
             const msg = response.data
             msg.forEach(x=>{
 
@@ -103,23 +118,35 @@ $(document).ready(function(){
               if(x.receiverId == receiver){
                 console.log("if")
                 var html = ``;
-                html +=`<li class="sent">
-                <div class="container lime lighten-3">
-                  <p>${x.messages}</p>
-                  <span class="time-right black-text">11:00</span>
+                html +=`<div class="row message-body">
+                <div class="col-sm-12 message-main-sender">
+                  <div class="sender">
+                    <div class="message-text">
+                     ${x.messages}
+                    </div>
+                    <span class="message-time pull-right">
+                    ${x.msgTime}
+                    </span>
+                  </div>
                 </div>
-               </li>`
-                document.getElementById("messages-user").innerHTML+=html
+              </div>`
+                document.getElementById("conversation").innerHTML+=html
               }else{
                 console.log("else")
                 var html = ``;
-                html +=`<li class="replies">
-                <div class="container darker green lighten-1">
-                  <p>${x.messages}</p>
-                 <span class="time-left black-text">11:01</span>
-               </div>
-              </li>`
-                document.getElementById("messages-user").innerHTML+=html
+                html +=`<div class="row message-body">
+                <div class="col-sm-12 message-main-receiver">
+                  <div class="receiver">
+                    <div class="message-text">
+                     ${x.messages}
+                    </div>
+                    <span class="message-time pull-right">
+                    ${x.msgTime}
+                    </span>
+                  </div>
+                </div>
+              </div>`
+                document.getElementById("conversation").innerHTML+=html
               }
             })
           }
@@ -183,9 +210,7 @@ $(document).ready(function(){
     });
 });
 //scroll jquery code referance from metrialize
-$(document).ready(function(){
-  $('.scrollspy').scrollSpy();
-});
+
 var scrolled = false;
 function updateScroll(){
     if(!scrolled){

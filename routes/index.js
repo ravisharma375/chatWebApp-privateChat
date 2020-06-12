@@ -89,7 +89,7 @@ router.get('/Login', function(req, res, next) {
 //post login
 //passport auth
 router.post('/Login',passport.authenticate('local',{
-  successRedirect:'/home',
+  successRedirect:'/homee',
   failureRedirect:'/Login',
   failureFlash:true,
  
@@ -106,7 +106,7 @@ router.post('/Login',passport.authenticate('local',{
 })
 const routes = [
   {
-    path: "/home",
+    path: "/homee",
   },
 ];
 function sendResponse(roleIndex, userId, res) {
@@ -125,7 +125,7 @@ router.get('/Logout',function(req,res){
   });
 })
 //get home page
-router.get('/home',auth.ensureAdminAuthenticated,async (req,res)=>{
+router.get('/homee',auth.ensureAdminAuthenticated,async (req,res)=>{
   const { user } = req;
  const allUser = await User.findAll({
   where:{
@@ -136,7 +136,7 @@ router.get('/home',auth.ensureAdminAuthenticated,async (req,res)=>{
   }
  })
  console.log(allUser)
- res.render("home", {
+ res.render("homee", {
 currtime:time, 
 CURRENTUSER:user,   
 USER:allUser
@@ -144,7 +144,7 @@ USER:allUser
 
 })
 //post home page
-router.post('/home',auth.ensureAdminAuthenticated,(req,res)=>{
+router.post('/homee',auth.ensureAdminAuthenticated,(req,res)=>{
   
 })
 // send message to client from data base

@@ -104,10 +104,12 @@ io.on("connection",(socket)=>{
       console.log(`sender ${data.sender} and receiver ${data.receiver} connected`)
       io.sockets.connected[socketId].emit('new-message',data,currtime);
      //save Message in DataBase in chat Table
+  
       chat.create({
         senderId:data.sender,
         receiverId:data.receiver,
-       messages:data.message
+        messages:data.message,
+        msgTime:data.time
 })
   }
     // io.to(socketId).emit("new-message",data)

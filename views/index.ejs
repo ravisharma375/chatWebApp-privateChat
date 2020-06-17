@@ -1,75 +1,47 @@
 <!DOCTYPE html>
-<html>
-  <head>
-  
- <!-- Metraial Ui  -->
- 
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<html lang="en">
+<head>
+	<title>Login V4</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-            <!-- icon -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  </head>
-  <style>
-    body{
-      background-color:#d1c4e9;
-    }
-    .center {
-  margin: auto;
- 
-  padding: 10px;
-}
-  </style>
-  <body>
-<header>
-  
-  <% include navbar.ejs %>
-        
-</header>
-<!-- <p class="center-align">Welcome to <%= title %></p> -->
-<section>
-  <div class="container">
-    <div class="row">
-      <div class="col s12">
-        <h1 class="center-align">Welcome to <%= title %></h1>
-        <% if(message){ %>
-          <h1 class="center-align  "><span class="red lighten-1">Error  <%= message %></span></h1>
-          <% }%>
-          <form class="center container" method="POST" action="/login">
-          <div class="row">
-              <div class="input-field col s12">
-                <i class="material-icons prefix">account_circle</i>
-                <input id="icon_prefix" name="username" type="text" class="validate">
-                <label for="icon_prefix">User Name</label>
-              </div>
-            
-              <div class="input-field col s12">
-                <i class="material-icons prefix">enhanced_encryption</i>
-              <input id="icon_telephone" name="password" type="password" class="validate">
-              <label for="icon_telephone">Password</label>
-              </div>
-            </div>
-            <button class="center-align btn waves-effect waves-light" type="submit" name="action">Login
-              <i class="material-icons right">send</i>
-            </button>
-            <h3><a href="/register">Register</a></h3>
-           
-      </form>   
-      </div>
+<!--===============================================================================================-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="/stylesheets/style.css">
+<!--===============================================================================================-->	
+</head>
+<body>
+<div >
+    <div class="login-dark">
+		
+		<form method="POST" action="/login">
+			  <!-- error -->
+			  <% if(message){ %>
+				<div class="alert alert-dark" role="alert">
+					Error  <%= message %> !
+			  </div>
+				
+				<% }%>
+            <h2 class="sr-only">Login Form</h2>
+            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+            <div class="form-group"><input class="form-control" type="text" name="username" placeholder="User Name"></div>
+            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+			<div class="form-group"><button class="btn  btn-block" type="submit" style="background: #ffe082; ">Log In</button></div>
+			<a href="/register" class="forgot">Click Here To SignUp</a>
+		</form>
     </div>
-  </div>
-</section>
-    
-  
-      
+</div>
 
-      </div>
-
-     
-
-    
-
-  </body>
+<!-- JS, Popper.js, and jQuery -->
+<!--===============================================================================================-->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+</body>
+<script>
+		setTimeout(()=>{$('.alert').alert('close')},4000)
+</script>
 </html>
+

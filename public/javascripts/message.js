@@ -3,6 +3,8 @@ var currtimenow=document.getElementById("currtime").value
 //message id array
 var listofmessage  = []
 var socket = io();
+//type of message
+var type ="text"
 //global variable for reciver
 var receiver=``;
 //glogbal variable for sender
@@ -41,7 +43,8 @@ else{
         sender:sender,
         receiver:receiver,
         message:message,
-        time:currtimenow
+        time:currtimenow,
+        type            //----------------text
     })
     var html = ``;
     // html +="<li class='replies text-left bg-dark text-white'><p>"+"you"+"say"+message+"</p></li>"
@@ -65,14 +68,15 @@ else{
 }
 //listen from server
 socket.on("new-message",(data,currtime)=>{
-
+  
+console.log(data.message)
   var html = ``;
   //html +="<li class='sent text-right bg-success text-white'><p>"+data.sender+"say"+data.message+"</p></li>"
   html += `<div class="row message-body">
   <div class="col-sm-12 message-main-receiver">
     <div class="receiver">
       <div class="message-text">
-       ${data.message}
+      ${data.type=="file"?`<img src="${data.message}" alt="loading.." class="img-thumbnail">`:data.message}
       </div>
       <span class="message-time pull-right">
       ${currtime}
@@ -112,7 +116,7 @@ $(document).ready(function(){
               // consol)e.log(x.senderId,sender)
               // console.log(x.receiverId,receiver)
               // console.log(x.messages)
-              // console.log(x.id)
+              // con`sole.log(x.id)
               // listofmessage.push(x.id)
               // console.log(listofmessage)
               if(x.receiverId == receiver){
@@ -122,7 +126,8 @@ $(document).ready(function(){
                 <div class="col-sm-12 message-main-sender">
                   <div class="sender">
                     <div class="message-text">
-                     ${x.messages}
+                    ${x.type=="file"?`<img src="${x.messages}" alt="loading.." class="img-thumbnail">`:x.messages}
+                    
                     </div>
                     <span class="message-time pull-right">
                     ${x.msgTime}
@@ -138,8 +143,8 @@ $(document).ready(function(){
                 <div class="col-sm-12 message-main-receiver">
                   <div class="receiver">
                     <div class="message-text">
-                     ${x.messages}
-                    </div>
+                    ${x.type=="file"?`<img src="${x.messages}" alt="loading.." class="img-thumbnail">`:x.messages}
+                   </div>
                     <span class="message-time pull-right">
                     ${x.msgTime}
                     </span>
@@ -152,52 +157,8 @@ $(document).ready(function(){
           }
         })
         if($(this).prop("checked") == true){
-          
          $("#message").prop("disabled", false);
          console.log("click me")
-
-        //  $.ajax({
-        //   type:"POST",
-        //   url:"/chatMessage",
-        //  data:{
-        //     sender:sender,
-        //     receiver:receiver,
-        //   },
-        //   success:function(response){
-            
-        //     const msg = response.data
-        //     msg.forEach(x=>{
-
-        //       // consol)e.log(x.senderId,sender)
-        //       // console.log(x.receiverId,receiver)
-        //       // console.log(x.messages)
-        //       // console.log(x.id)
-        //       // listofmessage.push(x.id)
-        //       // console.log(listofmessage)
-        //       if(x.receiverId == receiver){
-        //         console.log("if")
-        //         var html = ``;
-        //         html +=`<li class="sent">
-        //         <div class="container lime lighten-3">
-        //           <p>${x.messages}</p>
-        //           <span class="time-right black-text">11:00</span>
-        //         </div>
-        //        </li>`
-        //         document.getElementById("messages-user").innerHTML+=html
-        //       }else{
-        //         console.log("else")
-        //         var html = ``;
-        //         html +=`<li class="replies">
-        //         <div class="container darker green lighten-1">
-        //           <p>${x.messages}</p>
-        //          <span class="time-left black-text">11:01</span>
-        //        </div>
-        //       </li>`
-        //         document.getElementById("messages-user").innerHTML+=html
-        //       }
-        //     })
-        //   }
-        // })
         }
         else if($(this).prop("checked") == false){
           console.log("redio is uncheck")
@@ -208,17 +169,103 @@ $(document).ready(function(){
           return true
          }
     });
-});
+
+    if (window.matchMedia('(max-width: 700px)').matches)
+
+    {
+      var des = document.getElementById("Desktop");
+      des.remove();
+      
+      // $("#Desktop").css("display", "none");
+      // $("#Mobile").css("display", "block");
+      // do functionality on screens smaller than 768px
+    var userList = $('.agree');
+    var messages = $('.side-two-sec');
+    var close = $('.close');
+    
+    userList.on('click', function(){
+      $("#side-one").css({"display": "none",});
+      $(this).addClass('active');
+      messages.addClass('active');
+    });
+    
+    close.on('click', function(){
+      $("#side-one").css({"display": "block",});
+      messages.removeClass('active');
+      userList.removeClass('active');
+    });
+
+
+
+    }
+    else{
+      // $("#Mobile").css("display", "none");
+      // $("#Desktop").css("display", "block");
+      var mob = document.getElementById("Mobile");
+      mob.remove();
+    }
+
+  });
 //scroll jquery code referance from metrialize
 
-var scrolled = false;
-function updateScroll(){
-    if(!scrolled){
-        var element = document.getElementById("yourDivID");
-        element.scrollTop = element.scrollHeight;
-    }
-}
+   
 
-$("#yourDivID").on('scroll', function(){
-    scrolled=true;
-});
+async function convertBase64(element){
+  const file = element.files[0];
+  console.log(file)
+  
+  const reader =  new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () =>{
+    
+    const getext = (file.type).split("/");
+    const ext = getext[1];
+
+    console.log(ext)
+   const dataURL= reader.result
+   const base64=dataURL.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
+  $.ajax({
+    type:"POST",
+    url:"/uploadfile",
+   data:{
+    base64:base64,
+    ext:ext,
+    },
+    success:function(response){
+console.log(response.data.filePath)
+var filePath  = response.data.filePath
+//send file to server using socket io
+    //send message to server
+    console.log(message,"hello")
+    socket.emit("send-message",{
+        sender:sender,
+        receiver:receiver,
+        message:filePath,
+        time:currtimenow,
+        type:"file"            //----------------file
+    })
+    var html = ``;
+    // html +="<li class='replies text-left bg-dark text-white'><p>"+"you"+"say"+message+"</p></li>"
+     html += `<div class="row message-body">
+     <div class="col-sm-12 message-main-sender">
+       <div class="sender">
+         <div class="message-text">
+         <img src="${filePath}" alt="loading.." class="img-thumbnail">
+        
+          </div>
+         <span class="message-time pull-right">
+           ${currtimenow}
+         </span>
+       </div>
+     </div>
+   </div>`
+   document.getElementById("conversation").innerHTML+=html
+   document.getElementById("message").value  = ""
+   //end
+    }
+   })
+   
+   return base64
+  }
+  
+ }

@@ -483,7 +483,20 @@ body {
   }
   .heading {
     height: 70px;
-    background-color: #009688;
+    background-color: #2E2E2E;
+    /* 009688 */
+  }
+  ::placeholder{
+    color: #ffe082;
+  }
+  .amberOrange{
+    color: #ffe082;
+  }
+  .darkbg{
+    background-color: #212121;
+  }
+  .dark{
+    background-color: #2E2E2E;
   }
   .fa-2x {
     font-size: 2.3em !important;
@@ -499,7 +512,7 @@ body {
     padding: 5px !important;
   }
   .heading-compose i {
-    color: #fff;
+    color: #ffe082;
     cursor: pointer;
   }
   .heading-dot {
@@ -507,7 +520,7 @@ body {
     margin-left: 10px !important;
   }
   .heading-dot i {
-    color: #fff;
+    color: #ffe082;
     cursor: pointer;
   }
   .sideBar {
@@ -515,6 +528,7 @@ body {
   }
   .sideBar-body {
     height: 80px;
+    border-bottom: 1px solid #212121;
   }
   .sideBar-avatar {
     text-align: left;
@@ -537,6 +551,7 @@ body {
   .name-meta {
     font-size: 16px;
     padding: 5% !important;
+    color: #ffe082;
   }
   .sideBar-time {
     padding: 10px !important;
@@ -545,7 +560,7 @@ body {
     text-align: right;
     font-size: 14px;
     padding: 4% !important;
-    color: rgba(0, 0, 0, .4);
+    color: #ffe082;
     vertical-align: baseline;
   }
   /*Conversation*/
@@ -559,9 +574,22 @@ body {
   }
   .message {
     height: calc(100% - 140px);
+   
+  }
+  .sender{
+    background: #84ffff;
+  }
+  .receiver{
+    background: #ffab91;
+  }
+  #conversation{
+    border: 1px solid #2E2E2E;
+    background-color: #212121;
   }
   .reply {
     height: 70px;
+    border: 1px solid #2E2E2E;
+    background-color: #212121;
   }
   .reply-emojis {
     padding: 5px 0 !important;
@@ -591,6 +619,38 @@ body {
     padding: 5px 2px 5px 0 !important;
     font-size: 1.8em !important;
   }
+/* demo */
+li.active {
+  background: #ffab91;
+  transition: background .3s;
+  
+}
+
+.side-two-sec {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  transition: transform .3s;
+  transform: translateX(100%);
+ 
+}
+
+.side-two-sec.active {
+  transform: translateX(0);
+}
+
+.close {
+  display: inline-flex;
+
+}
+
+.close:hover {
+  opacity: .7;
+}
+
 }
     </style>
 </head>
@@ -601,40 +661,52 @@ body {
 <input id="CURRENTUSER" type="hidden" value='<%=CURRENTUSER.userName%>'>
 <input id="CURRENTUSERID" type="hidden" value='<%=CURRENTUSER.id%>'> 
 <input id="currtime" type="hidden" value='<%=currtime%>'>
-<div class="container app">
-  <div class="row app-one">
-    <div class="col-sm-4 side">
-      <div class="side-one">
-        <div class="row heading">
-          <div class="col-sm-3 col-xs-3 heading-avatar">
-            <div class="heading-avatar-icon">
-              <img src="https://res.cloudinary.com/dwlbzw9dt/image/upload/v1591860078/chatapp%20image/WhatsApp_Image_2020-06-11_at_12.19.53_AM_eqqgr4.jpg">
+<div id="Mobile" class="" style="">
+  <div class="container app">
+    <div class="row darkbg app-one">
+     
+  
+  <!-- side one user list section Start-->
+          <section id="side-one">
+            <div class="col-sm-4 side">
+            <div class="side-one">
+              <div class="row heading">
+                <div class="col-sm-3 col-xs-3 heading-avatar">
+                  <div class="heading-avatar-icon">
+                    <img src="https://res.cloudinary.com/dwlbzw9dt/image/upload/v1591860078/chatapp%20image/WhatsApp_Image_2020-06-11_at_12.19.53_AM_eqqgr4.jpg">
+                  </div>
+                </div>
+                <div class="col-sm-1 col-xs-1   heading-dot  pull-right ">
+                  <i class="fa fa-ellipsis-v fa-2x  pull-right " aria-hidden="true" style="color: #ffe082;"></i>
+                </div>
+                <div class="col-sm-2 col-xs-2  heading-compose  pull-right">
+                  
+                  <form action="/Logout" id="logoutForm" method="GET">
+                    <i class="fa fa-power-off fa-2x  pull-right" aria-hidden="true" onclick="document.getElementById('logoutForm').submit();" for="logout">
+                    
+                    </i>
+                 </form>
+                </div>
+                <div class="col-sm-2 col-xs-2  heading-compose  pull-right">
+                  <i class="fa fa-comments fa-2x  pull-right " aria-hidden="true"></i>
+                </div>
+              </div>
+            <div class="row searchBox">
+              <div class="col-sm-12 searchBox-inner darkbg">
+                <div class="form-group has-feedback " >
+                  <input id="searchText" type="text" class="form-control dark" name="searchText" placeholder="Search">
+                  <span class="glyphicon glyphicon-search form-control-feedback amberOrange"></span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="col-sm-1 col-xs-1  heading-dot  pull-right">
-            <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
-          </div>
-          <div class="col-sm-2 col-xs-2 heading-compose  pull-right">
-            <i class="fa fa-comments fa-2x  pull-right" aria-hidden="true"></i>
-          </div>
-        </div>
-
-        <div class="row searchBox">
-          <div class="col-sm-12 searchBox-inner">
-            <div class="form-group has-feedback">
-              <input id="searchText" type="text" class="form-control" name="searchText" placeholder="Search">
-              <span class="glyphicon glyphicon-search form-control-feedback"></span>
-            </div>
-          </div>
-        </div>
-<!-- List Of User -->
-
-        <div class="row sideBar">
+            <!-- List Of User -->
+  
+          <div class="row dark sideBar" style="border: 1px #212121;">
             <% USER.forEach(user  => { %>
-          <div id="agree" class="row sideBar-body agree" onclick='onUserSelected("<%=user.userName %>")' >
+          <div id="agree" class="row sideBar-body agree" onclick='onUserSelected("<%=user.userName %>")'>
             <div class="col-sm-3 col-xs-3 sideBar-avatar">
               <div class="avatar-icon">
-                <img src="https://res.cloudinary.com/dwlbzw9dt/image/upload/v1591860078/chatapp%20image/WhatsApp_Image_2020-06-11_at_12.19.53_AM_eqqgr4.jpg">
+                <img src="https://ui-avatars.com/api/?name=<%=user.userName %>">
               </div>
             </div>
             <div class="col-sm-9 col-xs-9 sideBar-main">
@@ -658,64 +730,17 @@ body {
             </div>
           </div>
           <% })%>
-<!-- list of user End -->
-
+  <!-- list of user End -->
+  
          
         </div>
       </div>
-
-      <div class="side-two">
-        <div class="row newMessage-heading">
-          <div class="row newMessage-main">
-            <div class="col-sm-2 col-xs-2 newMessage-back">
-              <i class="fa fa-arrow-left" aria-hidden="true"></i>
-            </div>
-            <div class="col-sm-10 col-xs-10 newMessage-title">
-              New Chat
-            </div>
-          </div>
-        </div>
-
-        <div class="row composeBox">
-          <div class="col-sm-12 composeBox-inner">
-            <div class="form-group has-feedback">
-              <input id="composeText" type="text" class="form-control" name="searchText" placeholder="Search People">
-              <span class="glyphicon glyphicon-search form-control-feedback"></span>
-            </div>
-          </div>
-        </div>
-<!-- side bar -->
-        <div class="row compose-sideBar">
-          <div class="row sideBar-body">
-            <div class="col-sm-3 col-xs-3 sideBar-avatar">
-              <div class="avatar-icon">
-                <img src="https://res.cloudinary.com/dwlbzw9dt/image/upload/v1591860078/chatapp%20image/WhatsApp_Image_2020-06-11_at_12.19.53_AM_eqqgr4.jpg">
-              </div>
-            </div>
-            <div class="col-sm-9 col-xs-9 sideBar-main">
-              <div class="row">
-                <div class="col-sm-8 col-xs-8 sideBar-name">
-                  <span class="name-meta">full name
-                </span>
-                </div>
-                <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
-                  <span class="time-meta pull-right">18:18
-                </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
-
-
-
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-8      ">
+          </section>
+  <!-- side one user list section End-->
+  </div>
+  <!-- side two user list section start-->
+  <section id="side-two" class="side-two-sec">
+    <div class="">
       <div class="row heading">
         <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
           <div class="heading-avatar-icon">
@@ -723,15 +748,14 @@ body {
           </div>
         </div>
         <div class="col-sm-8 col-xs-7 heading-name">
-          <p class="heading-name-meta" id="chatHead"></p>
-         
-          <span class="heading-online">Online</span>
+          <span id="chatHead" class="heading-name-meta amberOrange"></span>
+          <!-- <span class="heading-online">Online</span> -->
         </div>
-        <div class="col-sm-1 col-xs-1  heading-dot pull-right">
-          <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
+        <div class="col-sm-2 col-xs-2 heading-compose pull-right">
+          <i class="fa fa-window-close  fa-2x  pull-right close" aria-hidden="true"></i>
         </div>
       </div>
-
+  
       <div class="row message" id="conversation">
           <h1></h1>
           <!--  Show Previous Message! -->
@@ -742,8 +766,8 @@ body {
             </a>
           </div>
         </div> -->
-
-        <div class="row message-body">
+  
+        <!-- <div class="row message-body">
           <div class="col-sm-12 message-main-receiver">
             <div class="receiver">
               <div class="message-text">
@@ -755,7 +779,7 @@ body {
             </div>
           </div>
         </div>
-
+  
         <div class="row message-body">
           <div class="col-sm-12 message-main-sender">
             <div class="sender">
@@ -767,35 +791,235 @@ body {
               </span>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
-
+      <!--  -->
+  
       <div class="row reply">
         <form onsubmit="return sendMessage()">
         <div class="col-sm-1 col-xs-1 reply-emojis">
           <i class="fa fa-smile-o fa-2x"></i>
         </div>
-        <div class="col-sm-9 col-xs-9 reply-main">
-          <textarea class="form-control" rows="1" id="message"></textarea>
+        <div class="col-sm-8 col-xs-8 reply-main">
+          <textarea class="form-control dark" rows="1" id="message" style="color: #ffffff; "></textarea>
+        
         </div>
         <div class="col-sm-1 col-xs-1 reply-recording">
           <i class="fa fa-microphone fa-2x" aria-hidden="true"></i>
         </div>
-        <div class="col-sm-1 col-xs-1 reply-send">
-            <button type="submit" class="btn-floating btn-large waves-effect waves-ligh message">  <i class="fa fa-send fa-2x" aria-hidden="true"></i></button>
-        
+        <div class="col-sm-1 col-xs-1 reply-recording">
+          <label class="fa fa-paperclip fa-2x" for="myfile">
+            <input id="myfile" name="myfile" type="file" onchange="convertBase64(this)" style="display: none;">    
+          </label>
+        </div>
+        <div class="col-sm-1 col-xs-1 reply-send ">
+            <button type="submit" class="btn-floating darkbg btn-large waves-effect waves-ligh message" style="border: none;">  <i class="fa fa-send fa-2x" aria-hidden="true"></i></button>
         </div>
     </form>
+      </div>
+    </div>
+  </section>
+  <!-- side two user list section End-->
+  
+    </div>
+  </div>
+</div>
+
+<div id="Desktop" class="">
+  <div class="container app">
+    <div class="row app-one">
+      <div class="col-sm-4 side">
+        <div class="side-one">
+          <div class="row heading">
+            <div class="col-sm-3 col-xs-3 heading-avatar">
+              <div class="heading-avatar-icon">
+                <img src="https://res.cloudinary.com/dwlbzw9dt/image/upload/v1591860078/chatapp%20image/WhatsApp_Image_2020-06-11_at_12.19.53_AM_eqqgr4.jpg">
+              </div>
+            </div>
+            <div class="col-sm-1 col-xs-1  heading-dot  pull-right">
+              <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
+            </div>
+            <div class="col-sm-2 col-xs-2 heading-compose  pull-right">
+              <i class="fa fa-comments fa-2x  pull-right" aria-hidden="true"></i>
+            </div>
+          </div>
+  
+          <div class="row searchBox">
+            <div class="col-sm-12 searchBox-inner">
+              <div class="form-group has-feedback">
+                <input id="searchText" type="text" class="form-control" name="searchText" placeholder="Search">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+          </div>
+  <!-- List Of User -->
+  
+          <div class="row sideBar">
+              <% USER.forEach(user  => { %>
+            <div id="agree" class="row sideBar-body agree" onclick='onUserSelected("<%=user.userName %>")' >
+              <div class="col-sm-3 col-xs-3 sideBar-avatar">
+                <div class="avatar-icon">
+                  <img src="https://ui-avatars.com/api/?name=<%=user.userName %>">
+                </div>
+              </div>
+              <div class="col-sm-9 col-xs-9 sideBar-main">
+                 
+                <div class="row">
+                  <div class="col-sm-8 col-xs-8 sideBar-name">
+                     <span class="name-meta"><%= user.userName %>
+                      &nbsp &nbsp &nbsp  
+                    </span>
+                    <!-- <button  name="group1"  id="agree" class="btn agree"  onclick='onUserSelected("<%=user.userName %>")' >
+                    <i class="fa fa-send fa-2x" aria-hidden="true"></i>
+                    </button> -->
+                  </div>
+                  <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
+                    <span class="time-meta pull-right">18:18
+                  </span>
+                  </div>
+                </div>
+              
+                <!-- button end -->
+              </div>
+            </div>
+            <% })%>
+  <!-- list of user End -->
+  
+           
+          </div>
+        </div>
+  
+        <div class="side-two">
+          <div class="row newMessage-heading">
+            <div class="row newMessage-main">
+              <div class="col-sm-2 col-xs-2 newMessage-back">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+              </div>
+              <div class="col-sm-10 col-xs-10 newMessage-title">
+                New Chat
+              </div>
+            </div>
+          </div>
+  
+          <div class="row composeBox">
+            <div class="col-sm-12 composeBox-inner">
+              <div class="form-group has-feedback">
+                <input id="composeText" type="text" class="form-control" name="searchText" placeholder="Search People">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+          </div>
+  <!-- side bar -->
+          <div class="row compose-sideBar">
+            <div class="row sideBar-body">
+              <div class="col-sm-3 col-xs-3 sideBar-avatar">
+                <div class="avatar-icon">
+                  <img src="https://res.cloudinary.com/dwlbzw9dt/image/upload/v1591860078/chatapp%20image/WhatsApp_Image_2020-06-11_at_12.19.53_AM_eqqgr4.jpg">
+                </div>
+              </div>
+              <div class="col-sm-9 col-xs-9 sideBar-main">
+                <div class="row">
+                  <div class="col-sm-8 col-xs-8 sideBar-name">
+                    <span class="name-meta">full name
+                  </span>
+                  </div>
+                  <div class="col-sm-4 col-xs-4 pull-right sideBar-time">
+                    <span class="time-meta pull-right">18:18
+                  </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+  
+  
+  
+  
+  
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-sm-8      ">
+        <div class="row heading">
+          <div class="col-sm-2 col-md-1 col-xs-3 heading-avatar">
+            <div class="heading-avatar-icon">
+              <img src="https://res.cloudinary.com/dwlbzw9dt/image/upload/v1591860078/chatapp%20image/WhatsApp_Image_2020-06-11_at_12.19.53_AM_eqqgr4.jpg">
+            </div>
+          </div>
+          <div class="col-sm-8 col-xs-7 heading-name">
+            <p class="heading-name-meta" id="chatHead"></p>
+           
+            <span class="heading-online">Online</span>
+          </div>
+          <div class="col-sm-1 col-xs-1  heading-dot pull-right">
+            <i class="fa fa-ellipsis-v fa-2x  pull-right" aria-hidden="true"></i>
+          </div>
+        </div>
+  
+        <div class="row message" id="conversation">
+            <h1></h1>
+            <!--  Show Previous Message! -->
+          <!-- <div class="row message-previous">
+            <div class="col-sm-12 previous">
+              <a onclick="previous(this)" id="ankitjain28" name="20">
+              Show Previous Message!
+              </a>
+            </div>
+          </div> -->
+  
+          <div class="row message-body">
+            <div class="col-sm-12 message-main-receiver">
+              <div class="receiver">
+                <div class="message-text">
+                 Hi, what are you doing?!
+                </div>
+                <span class="message-time pull-right">
+                  Sun
+                </span>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row message-body">
+            <div class="col-sm-12 message-main-sender">
+              <div class="sender">
+                <div class="message-text">
+                  I am doing nothing man!
+                </div>
+                <span class="message-time pull-right">
+                  Sun
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row reply">
+          <form onsubmit="return sendMessage()">
+          <div class="col-sm-1 col-xs-1 reply-emojis">
+            <i class="fa fa-smile-o fa-2x"></i>
+          </div>
+          <div class="col-sm-9 col-xs-9 reply-main">
+            <textarea class="form-control" rows="1" id="message"></textarea>
+          </div>
+          <div class="col-sm-1 col-xs-1 reply-recording">
+            <i class="fa fa-microphone fa-2x" aria-hidden="true"></i>
+          </div>
+          <div class="col-sm-1 col-xs-1 reply-send">
+              <button type="submit" class="btn-floating btn-large waves-effect waves-ligh message">  <i class="fa fa-send fa-2x" aria-hidden="true"></i></button>
+          
+          </div>
+      </form>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 
-
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script
-src="https://code.jquery.com/jquery-3.5.1.min.js"
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
 integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 crossorigin="anonymous"></script>
 <script src="/socket.io/socket.io.js"></script>
@@ -813,6 +1037,9 @@ crossorigin="anonymous"></script>
       $(".side-two").css({
         "left": "-100%"
       });
+    });
+    $("#logout").click(function() {
+      S("#logoutForm").submit()
     });
 })
 </script>

@@ -14,23 +14,6 @@ This Chat Web-site Where You Can chat In Private like **{WhatApp}**
  1. NodeJs **{ExpressJs FrameWork}**
  2. Passport Auth
  3. DataBase **{MySql}**
-## User Interface of Login Page
-> I have created simple and beautiful Login Page, Its only Take To parameter username and password
-
-![Screenshot (10)](https://user-images.githubusercontent.com/55868205/84129410-c7f51c80-a9f6-11ea-95df-16bb35430863.png)
-
-
-## User Interface of Registration Page
-> I have created simple and beautiful Login Page, Its only Take To parameter username and password
-
-![Screenshot (11)](https://user-images.githubusercontent.com/55868205/84129659-16a2b680-a9f7-11ea-81bd-547386f7b2bf.png)
-
-
-## User Interface of Home Page
-> I have created simple and beautiful Home Page, Where You Can Start doing Chatting
-
-![Screenshot (12)](https://user-images.githubusercontent.com/55868205/84129708-27532c80-a9f7-11ea-85a2-f6aa7b5e630a.png)
-
 
 ## Guide To Use This Project
 

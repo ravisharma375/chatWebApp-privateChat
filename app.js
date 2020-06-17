@@ -25,7 +25,9 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: true}));
+
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -109,7 +111,8 @@ io.on("connection",(socket)=>{
         senderId:data.sender,
         receiverId:data.receiver,
         messages:data.message,
-        msgTime:data.time
+        msgTime:data.time,
+        type:data.type
 })
   }
     // io.to(socketId).emit("new-message",data)

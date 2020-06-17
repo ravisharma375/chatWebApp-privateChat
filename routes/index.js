@@ -7,6 +7,42 @@ const { Op } = require("sequelize");
 var userService=require('../src/service/user')
 const {chat} = require("../config/db")
 const time=require('../src/service/message');
+const multer = require("multer")
+const mkdir = require("mkdirp");
+const fs = require("fs")
+const dir  = "./public/uploads"
+if(!fs.existsSync(dir)){
+  fs.mkdirSync(dir)
+}
+//file upload 
+// SET STORAGE
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, dir)
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+})
+ 
+var upload = multer({ storage: storage })
+//check file type multer
+function checkFileType(file, cb) {
+  // Allowed ext
+  // Allowed extlicenseFile
+  const filetypes = /jpeg|jpg|png/;
+  // Check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if (mimetype && extname) {
+    return cb(null, true);
+  }
+  return cb("Error: Images Only (jpg,png)!", false);
+}
+
 //get register page
 console.log("moment time in indexjs ",time)
 router.get('/register',function(req,res){
@@ -179,5 +215,30 @@ return res.json({
    }
    return false
  })
+//file upload using multer
+router.post('/uploadfile',async (req, res, next) => {
+  const date = new Date();
+  const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const year = date.getFullYear();
+  const file = req.body.base64;
 
+  const ext = req.body.ext;
+  const fileBuffer = Buffer.from(file, "base64");
+      const base = "public/";
+      const dir = `uploads/${year}/${month}/${day}/`
+      const path = base + dir;
+      if (!fs.existsSync(path)) {
+        await mkdir(path);
+      }
+      const fileName = `file_${Math.floor(100 + Math.random() * 9000000)}.${ext}`;
+      await fs.writeFileSync(path + fileName, fileBuffer, "utf8");
+      return res.status(200).send({
+        status: "success",
+        data: {
+          message: "File Uploaded Successfully!",
+          filePath: dir + fileName,
+        },
+      });
+    })
 module.exports = router;

@@ -18,7 +18,11 @@ module.exports = (connection,dataType) =>{
         },
         msgTime:{
             type:dataType.STRING,
-        }
+        },
+        type:{
+            type:dataType.ENUM,
+            values: ['text', 'file', 'voice']
+        },
     })
     return chat
 }

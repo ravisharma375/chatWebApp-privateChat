@@ -1,71 +1,44 @@
 <!DOCTYPE html>
-<html>
-  <head>
-  
- <!-- Metraial Ui  -->
- 
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<html lang="en">
+<head>
+	<title>Register</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-            <!-- icon -->
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"><link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  </head>
-  <style>
-    body{
-      background-color:#d1c4e9;
-    }
-    .center {
-  margin: auto;
-  width: 50%;
-  padding: 10px;
-}
-  </style>
-  <body>
-<header>
-  
-  <% include navbar.ejs %>
-        
-</header>
+<!--===============================================================================================-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<!--===============================================================================================-->
+<link rel="stylesheet" href="/stylesheets/style.css">
+<!--===============================================================================================-->	
+</head>
+<body>
+<div >
+    <div class="login-dark">
+		
+		<form id="formID" method="POST" action="/register">
+			  <!-- error -->
+			  <span id="ERROR"></span>
+			 
+            <h2 class="sr-only">Register Form</h2>
+            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+            <div class="form-group"><input class="form-control" type="text" name="userName" placeholder="User Name"></div>
+            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+			<div class="form-group"><button class="btn  btn-block" type="submit"  style="background: #ffe082; ">Register</button></div>
+			<a href="/login" class="forgot">Click Here To SignIn</a>
+		</form>
+    </div>
+</div>
 
-    <h1 class="center-align">Welcome to register</h1>
-    <h1 class="center-align" id="ERROR"></h1>
-      
-        <form class="center" id="formID" method="POST" action="/register">
-        
-           
-              <div class="row">
-                <div class="input-field col s9">
-                  <i class="material-icons prefix">account_circle</i>
-                  <input id="icon_prefix" name="userName" type="text" class="validate">
-                  <label for="icon_prefix">User Name</label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="input-field col s9">
-                  <i class="material-icons prefix">enhanced_encryption</i>
-                <input id="icon_telephone" name="password" type="password" class="validate">
-                <label for="icon_telephone">Password</label>
-                </div>
-              </div>
-              <button class="center-align btn waves-effect waves-light" type="submit" name="action">Register
-                <i class="material-icons right">send</i>
-              </button>
-              <h3><a href="/login">login</a></h3>
-              
-        
-           
-          </div>
-        </form>
-        
-      </div>
-      <script
-  src="https://code.jquery.com/jquery-3.5.1.min.js"
-  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-  crossorigin="anonymous"></script>
+<!-- JS, Popper.js, and jQuery -->
+<!--===============================================================================================-->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+</body>
 <script>
-    $(function(){
+		 //ajax to validate user 
+		 $(function(){
     $('#formID').submit(function(e){
         e.preventDefault();
   
@@ -76,31 +49,19 @@
             success:function(response){
             
               if(response.status==false){
-                  let html=`<span  class="red lighten-1" id="ERROR">Error ${response.message}</span>`
+                  let html=`<div id="alert" class="alert alert-dark" role="alert">
+					Error  ${response.message} !</div>`
                   document.getElementById("ERROR").innerHTML=html
               }else{
-                  let html=`<span  class="green accent-3" id="ERROR">${response.message}</span>`
-                  document.getElementById("ERROR").innerHTML=html
+				  let  html= `<div id="alert" class="alert alert-success" role="alert">
+					${response.message} !</div>`
+                 document.getElementById("ERROR").innerHTML=html
               }
              }
             })
     });
-
 });
-
+	     //set time out function to display error message
+		setTimeout(()=>{$('#alert').alert('close')},4000)
 </script>
-     
-
-    
-
-  </body>
 </html>
-
-
-
-
-
-
-
-
-

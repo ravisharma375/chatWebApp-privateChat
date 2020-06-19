@@ -3,11 +3,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const time=require('./src/service/message');
+const time=require('./src/lib/message');
 const passport = require("passport");
 //var io = require('socket.io')(server);
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
 const session = require("express-session");
 const flash = require("connect-flash");
 const {friends} = require("./config/db")
@@ -53,7 +53,6 @@ app.use(passport.session());
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

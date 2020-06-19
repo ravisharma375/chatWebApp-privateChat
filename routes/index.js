@@ -4,43 +4,15 @@ var passport = require("passport");
 var {User} = require('../config/db')
 var auth  = require('../config/auth')
 const { Op } = require("sequelize");
-var userService=require('../src/service/user')
+var userService=require('../src/user/Service/user')
 const {chat} = require("../config/db")
-const time=require('../src/service/message');
+const time=require('../src/lib/message');
 const multer = require("multer")
 const mkdir = require("mkdirp");
 const fs = require("fs")
 const dir  = "./public/uploads"
 if(!fs.existsSync(dir)){
   fs.mkdirSync(dir)
-}
-//file upload 
-// SET STORAGE
-
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, dir)
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now())
-  }
-})
- 
-var upload = multer({ storage: storage })
-//check file type multer
-function checkFileType(file, cb) {
-  // Allowed ext
-  // Allowed extlicenseFile
-  const filetypes = /jpeg|jpg|png/;
-  // Check ext
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-  // Check mime
-  const mimetype = filetypes.test(file.mimetype);
-
-  if (mimetype && extname) {
-    return cb(null, true);
-  }
-  return cb("Error: Images Only (jpg,png)!", false);
 }
 
 //get register page
@@ -180,9 +152,7 @@ USER:allUser
 
 })
 //post home page
-router.post('/homee',auth.ensureAdminAuthenticated,(req,res)=>{
-  
-})
+router.post('/homee',auth.ensureAdminAuthenticated,(req,res)=>{})
 // send message to client from data base
 router.post("/chatMessage",auth.ensureAdminAuthenticated,async (req,res)=>{
   //get all message from database 
